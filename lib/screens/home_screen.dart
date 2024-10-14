@@ -26,7 +26,7 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Ver pedidos activos',
+          'Rapi U - Delivery',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: AppTheme.primaryColor,

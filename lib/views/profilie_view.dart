@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:myapp/core/app_theme.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
