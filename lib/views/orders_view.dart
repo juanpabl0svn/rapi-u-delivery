@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/app_theme.dart';
-import 'package:myapp/models/order.dart';
-
+import 'package:myapp/domain/entities/order.dart';
 
 class OrdersView extends StatefulWidget {
   const OrdersView({super.key});
@@ -14,12 +12,10 @@ class OrdersView extends StatefulWidget {
 class _OrdersView extends State<OrdersView> {
   @override
   Widget build(BuildContext context) {
-    final orders = [
-          Order(1, 'Pedro', 'Donde tavo', OrderState.pending ),
-          Order(2, 'Juan', 'Donde dari', OrderState.pending ),
-          Order(3, 'Maria', 'Pimientos', OrderState.pending ),
-          Order(4, 'Jose', 'Señor gurmet', OrderState.pending ),
-        ];
+    final List<Order> orders = [
+      Order(id: 1, client: 'Pedro', store: 'Donde tavo'),
+      Order(id: 2, client: 'Juan', store: 'Donde dari'),
+    ];
 
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -39,7 +35,7 @@ class _OrdersView extends State<OrdersView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    order.cliente,
+                    order.client,
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -49,11 +45,11 @@ class _OrdersView extends State<OrdersView> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
-                      onPressed: order.status == OrderState.accepted
+                      onPressed: order.state == OrderState.delivered
                           ? null // Si el pedido ya fue aceptado, el botón está deshabilitado
                           : () {
                               setState(() {
-                                order.status = OrderState.accepted;
+                                order.state = OrderState.delivered;
                               });
                             },
                       style: ElevatedButton.styleFrom(
@@ -61,7 +57,7 @@ class _OrdersView extends State<OrdersView> {
                           horizontal: 24,
                           vertical: 12,
                         ),
-                        backgroundColor: order.status == OrderState.accepted
+                        backgroundColor: order.state == OrderState.delivered
                             ? Colors.grey
                             : AppTheme.primaryColor,
                         shape: RoundedRectangleBorder(
@@ -69,7 +65,9 @@ class _OrdersView extends State<OrdersView> {
                         ),
                       ),
                       child: Text(
-                        order.status == OrderState.accepted ? 'Aceptado' : 'Aceptar',
+                        order.state == OrderState.delivered
+                            ? 'Aceptado'
+                            : 'Aceptar',
                         style: const TextStyle(color: Colors.white),
                       ),
                     ),

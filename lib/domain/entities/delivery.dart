@@ -40,6 +40,6 @@ class Delivery {
 
   @override
   String toString() {
-    return 'Delivery {id: $id, name: $name, email: $email, phone: $phone, studio: $studio, completedOrders: $completedOrders}';
+    return 'Delivery {id: $id, name: $name, email: $email, phone: $phone';
   }
 }
