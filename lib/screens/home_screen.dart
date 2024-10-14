@@ -5,7 +5,6 @@ import 'package:myapp/views/orders_view.dart';
 import 'package:myapp/views/profilie_view.dart';
 import 'package:myapp/views/settings_view.dart';
 
-// ConsumerStatefulWidget que representa la vista de "Ver pedidos activos"
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 

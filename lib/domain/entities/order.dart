@@ -13,6 +13,15 @@ class Order {
     this.state = OrderState.pending,
   });
 
+  factory Order.fromJson(Map<String, dynamic> map) {
+    return Order(
+      id: map['id'],
+      client: map['client'],
+      store: map['store'],
+      state: OrderState.values[map['state']],
+    );
+  }
+
   Order copyWith({OrderState? state}) {
     return Order(
       id: id,

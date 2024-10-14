@@ -1,8 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:myapp/screens/home_screen.dart';
-import 'package:myapp/screens/login_screen.dart';
-import 'package:myapp/screens/home_screen.dart';
-import 'package:myapp/screens/register_screen.dart';
+import 'package:myapp/screens/screens.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';

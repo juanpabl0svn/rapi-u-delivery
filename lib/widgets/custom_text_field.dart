@@ -7,7 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final TextInputType keyboardType;
-  final IconData? icon; // Añadimos ícono opcional
+  final IconData? icon; 
 
   const CustomTextField({
     super.key,
@@ -16,7 +16,7 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
-    this.icon, // Parámetro para el ícono
+    this.icon,
   });
 
   @override

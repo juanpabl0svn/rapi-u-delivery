@@ -17,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Fondo con degradado usando los colores definidos en AppTheme
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -33,14 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Icono principal con color del tema
                 const Icon(
                   Icons.delivery_dining_rounded,
                   size: 100,
                   color: AppTheme.primaryColor,
                 ),
                 const SizedBox(height: 32),
-                // Título estilizado con el color del tema
                 const Text(
                   "Login to RAPIU",
                   style: TextStyle(
@@ -50,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Campo de texto para email usando AppTheme
                 CustomTextField(
                   controller: _emailController,
                   labelText: "Email",
@@ -59,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: Icons.email,
                 ),
                 const SizedBox(height: 16),
-                // Campo de texto para contraseña
                 CustomTextField(
                   controller: _passwordController,
                   labelText: "Password",
@@ -68,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   icon: Icons.lock,
                 ),
                 const SizedBox(height: 32),
-                // Botón estilizado con el tema
                 ElevatedButton(
                   onPressed: () {
                     context.go('/home');
@@ -91,7 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                // Texto para redirigir al registro
                 GestureDetector(
                   onTap: () {
                     context.go('/register');
