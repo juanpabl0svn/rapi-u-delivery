@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/app_theme.dart';
-import 'package:myapp/views/orders_view.dart';
-import 'package:myapp/views/profilie_view.dart';
-import 'package:myapp/views/settings_view.dart';
+import 'package:myapp/views/views.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreen createState() => _HomeScreen();
 }
 
 class _HomeScreen extends ConsumerState<HomeScreen> {
   final screens = [
     const OrdersView(),
+    const MyOrdersView(),
     const ProfileView(),
     const SettingsView()
   ];
@@ -37,6 +37,9 @@ class _HomeScreen extends ConsumerState<HomeScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.home, color: AppTheme.primaryColor),
               label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.delivery_dining, color: AppTheme.primaryColor),
+              label: 'Settings'),
           BottomNavigationBarItem(
               icon: Icon(Icons.person, color: AppTheme.primaryColor),
               label: 'Profile'),
