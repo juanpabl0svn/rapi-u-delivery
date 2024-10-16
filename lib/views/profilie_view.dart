@@ -10,8 +10,9 @@ class ProfileView extends ConsumerStatefulWidget {
 
 class _ProfileViewState extends ConsumerState<ProfileView> {
   // Controladores de texto para simular la información del repartidor
-  final String nombreRepartidor = "Nombre Repartidor";
-  final String infoRepartidor = "Información repartidor\n(que estudia)";
+  final String nombreRepartidor = "Juan Pablo Sanchez";
+  final String infoRepartidor =
+      "Información repartidor\n Estudiante de Ing. Sistemas \n 21 años";
 
   @override
   Widget build(BuildContext context) {

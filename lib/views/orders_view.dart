@@ -10,13 +10,21 @@ class OrdersView extends StatefulWidget {
 }
 
 class _OrdersView extends State<OrdersView> {
+  // Mover la lista de órdenes fuera del método build para que persistan los cambios
+  final List<Order> orders = [
+    Order(
+        id: 1, client: 'Pedro', store: 'Donde Tavo', state: OrderState.pending),
+    Order(
+        id: 2, client: 'Juan', store: 'Donde Dari', state: OrderState.pending),
+    Order(
+        id: 3,
+        client: 'Maria',
+        store: 'Señor Gourmet',
+        state: OrderState.delivered),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final List<Order> orders = [
-      Order(id: 1, client: 'Pedro', store: 'Donde tavo'),
-      Order(id: 2, client: 'Juan', store: 'Donde dari'),
-    ];
-
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: ListView.builder(
@@ -42,14 +50,28 @@ class _OrdersView extends State<OrdersView> {
                     ),
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    order.store,
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Estado: ${order.state.toString().split('.').last}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 8),
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: order.state == OrderState.delivered
-                          ? null // Si el pedido ya fue aceptado, el botón está deshabilitado
+                          ? null
                           : () {
                               setState(() {
-                                order.state = OrderState.delivered;
+                                order.changeState(
+                                  order.state == OrderState.pending
+                                      ? OrderState.onTheWay
+                                      : OrderState.delivered,
+                                );
                               });
                             },
                       style: ElevatedButton.styleFrom(

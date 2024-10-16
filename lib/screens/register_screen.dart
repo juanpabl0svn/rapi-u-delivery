@@ -40,10 +40,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const Text(
                     "Create an Account",
                     style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white
-                    ),
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   const SizedBox(height: 16),
                   CustomTextField(
@@ -82,6 +81,59 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 32),
                   ElevatedButton(
                     onPressed: () {
+                      final name = _nameController.text;
+                      final email = _emailController.text;
+                      final phone = _phoneController.text;
+                      final password = _passwordController.text;
+                      final repeatPassword = _repeatPasswordController.text;
+
+                      if (name.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Nombre no puede e')),
+                        );
+                        return;
+                      }
+
+                      if (email.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Email cannot be empty')),
+                        );
+                        return;
+                      } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
+                          .hasMatch(email)) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content:
+                                  Text('Please enter a valid Gmail address')),
+                        );
+                        return;
+                      }
+
+                      if (phone.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Phone number cannot be empty')),
+                        );
+                        return;
+                      }
+
+                      if (password.isEmpty) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Password cannot be empty')),
+                        );
+                        return;
+                      }
+
+                      if (password != repeatPassword) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Passwords do not match')),
+                        );
+                        return;
+                      }
+
                       context.go('/home');
                     },
                     style: ElevatedButton.styleFrom(

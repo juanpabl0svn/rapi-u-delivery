@@ -22,6 +22,10 @@ class Order {
     );
   }
 
+  void changeState(OrderState newState) {
+    state = newState;
+  }
+
   Order copyWith({OrderState? state}) {
     return Order(
       id: id,
