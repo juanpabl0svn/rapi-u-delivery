@@ -1,28 +1,16 @@
-
+// app_state.dart
 import 'package:myapp/domain/entities/order.dart';
 
 class AppState {
+  final List<Order> orders;
 
-  final List<Order> orders = [];
+  final List<Order> my_orders = [];
 
-  final List<Order> history = [];
+  AppState({required this.orders});
 
-  
-
-
-  AppState();
-
-
-  void addOrder(Order order) {
-    orders.add(order);
+  AppState copyWith({List<Order>? orders}) {
+    return AppState(
+      orders: orders ?? this.orders,
+    );
   }
-
-  AppState copyWith() {
-    return AppState();
-  }
-
-
-
-
-
 }

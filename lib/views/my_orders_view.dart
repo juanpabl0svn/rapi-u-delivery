@@ -9,7 +9,7 @@ class MyOrdersView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orders = ref.watch(appStateProvider).orders;
+    final orders = ref.watch(appStateProvider).my_orders;
 
     return Column(
       children: [

@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/app_theme.dart';
 import 'package:myapp/domain/entities/order.dart';
+import 'package:myapp/infraestructure/providers/state_provider.dart';
 
-class OrdersView extends StatefulWidget {
+class OrdersView extends ConsumerStatefulWidget {
   const OrdersView({super.key});
 
   @override
   _OrdersView createState() => _OrdersView();
 }
 
-class _OrdersView extends State<OrdersView> {
-  // Mover la lista de órdenes fuera del método build para que persistan los cambios
-  final List<Order> orders = [
-    Order(
-        id: 1, client: 'Pedro', store: 'Donde Tavo', state: OrderState.pending),
-    Order(
-        id: 2, client: 'Juan', store: 'Donde Dari', state: OrderState.pending),
-    Order(
-        id: 3,
-        client: 'Maria',
-        store: 'Señor Gourmet',
-        state: OrderState.delivered),
-  ];
-
+class _OrdersView extends ConsumerState<OrdersView> {
   @override
   Widget build(BuildContext context) {
+    final List<Order> orders = ref
+        .watch(appStateProvider)
+        .orders
+        .where((order) => order.state == OrderState.pending)
+        .toList();
+
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ListView.builder(
+      child: orders.length < 1 ? const Center(
+        child: Text('No hay pedidos pendientes'),
+      ) : ListView.builder(
         itemCount: orders.length,
         itemBuilder: (context, index) {
           final order = orders[index];
@@ -75,7 +72,7 @@ class _OrdersView extends State<OrdersView> {
                                       order.changeState(
                                         order.state == OrderState.pending
                                             ? OrderState.onTheWay
-                                            : OrderState.delivered,
+                                            : OrderState.pending,
                                       );
                                     });
                                   },
