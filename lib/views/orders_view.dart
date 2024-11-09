@@ -62,37 +62,43 @@ class _OrdersView extends State<OrdersView> {
                   const SizedBox(height: 8),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: order.state == OrderState.delivered
-                          ? null
-                          : () {
-                              setState(() {
-                                order.changeState(
-                                  order.state == OrderState.pending
-                                      ? OrderState.onTheWay
-                                      : OrderState.delivered,
-                                );
-                              });
-                            },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        backgroundColor: order.state == OrderState.delivered
-                            ? Colors.grey
-                            : AppTheme.primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        order.state == OrderState.delivered
-                            ? 'Aceptado'
-                            : 'Aceptar',
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
+                    child: order.state == OrderState.onTheWay
+                        ? const Icon(
+                            Icons.delivery_dining,
+                            color: Colors.green,
+                          )
+                        : ElevatedButton(
+                            onPressed: order.state == OrderState.delivered
+                                ? null
+                                : () {
+                                    setState(() {
+                                      order.changeState(
+                                        order.state == OrderState.pending
+                                            ? OrderState.onTheWay
+                                            : OrderState.delivered,
+                                      );
+                                    });
+                                  },
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 12,
+                              ),
+                              backgroundColor:
+                                  order.state == OrderState.delivered
+                                      ? Colors.grey
+                                      : AppTheme.primaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                            ),
+                            child: Text(
+                              order.state == OrderState.delivered
+                                  ? 'Aceptado'
+                                  : 'Aceptar',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
                   ),
                 ],
               ),

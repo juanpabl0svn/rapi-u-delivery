@@ -1,29 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/app_theme.dart';
 import 'package:myapp/domain/entities/order.dart';
+import 'package:myapp/infraestructure/providers/state_provider.dart';
 
-class MyOrdersView extends StatefulWidget {
+class MyOrdersView extends ConsumerWidget {
   const MyOrdersView({super.key});
 
   @override
-  _OrdersView createState() => _OrdersView();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final orders = ref.watch(appStateProvider).orders;
 
-class _OrdersView extends State<MyOrdersView> {
-  final List<Order> orders = [
-    Order(
-        id: 1, client: 'Pedro', store: 'Donde Tavo', state: OrderState.pending),
-    Order(
-        id: 2, client: 'Juan', store: 'Donde Dari', state: OrderState.pending),
-    Order(
-        id: 3,
-        client: 'Maria',
-        store: 'Señor Gourmet',
-        state: OrderState.delivered),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
     return Column(
       children: [
         const SizedBox(height: 16),
@@ -78,23 +65,23 @@ class _OrdersView extends State<MyOrdersView> {
                             onPressed: order.state == OrderState.delivered
                                 ? null
                                 : () {
-                                    setState(() {
-                                      order.changeState(
-                                        order.state == OrderState.pending
-                                            ? OrderState.onTheWay
-                                            : OrderState.delivered,
-                                      );
-                                    });
+                                    ref
+                                        .read(appStateProvider.notifier)
+                                        .changeOrderState(
+                                          order,
+                                          order.state == OrderState.pending
+                                              ? OrderState.onTheWay
+                                              : OrderState.delivered,
+                                        );
                                   },
                             style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 24,
                                 vertical: 12,
                               ),
-                              backgroundColor:
-                                  order.state == OrderState.delivered
-                                      ? Colors.grey
-                                      : AppTheme.primaryColor,
+                              backgroundColor: order.state == OrderState.delivered
+                                  ? Colors.grey
+                                  : AppTheme.primaryColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),

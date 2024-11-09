@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myapp/core/app_theme.dart';
+import 'package:myapp/infraestructure/providers/auth_provider.dart';
 
-class SettingsView extends ConsumerStatefulWidget {
+class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
 
   @override
-  _SettingsViewState createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends ConsumerState<SettingsView> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: [
@@ -55,6 +51,7 @@ class _SettingsViewState extends ConsumerState<SettingsView> {
                     ),
                     TextButton(
                       onPressed: () {
+                        ref.watch(authProvider.notifier).logout();
                         context.go('/');
                       },
                       child: const Text('Cerrar Sesión'),

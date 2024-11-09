@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/app_router.dart';
 
-import './router/app_router.dart';
 
 void main() => runApp(const ProviderScope(child: MyApp()));
 
@@ -10,7 +10,6 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final darkMode = ref.watch(darkModeProvider);
 
     final appRouter = ref.watch(appRouterProvider);
 

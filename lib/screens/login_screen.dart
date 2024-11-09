@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myapp/core/app_theme.dart';
+import 'package:myapp/infraestructure/providers/auth_provider.dart';
 import 'package:myapp/widgets/custom_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends ConsumerState<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     final email = _emailController.text;
                     final password = _passwordController.text;
 
@@ -73,20 +82,29 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SnackBar(content: Text('Email cannot be empty')),
                       );
                       return;
-                    } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$').hasMatch(email)) {
+                    } else if (!RegExp(r'^[a-zA-Z0-9._%+-]+@gmail\.com$')
+                        .hasMatch(email)) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Fill with a valid email')),
+                        const SnackBar(
+                            content: Text('Fill with a valid email')),
                       );
                       return;
                     }
 
                     if (password.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Password cannot be empty')),
+                        const SnackBar(
+                            content: Text('Password cannot be empty')),
                       );
                       return;
                     }
-                    context.go('/home');
+
+                    await ref
+                        .read(authProvider.notifier)
+                        .login(email, password);
+
+                    // Acceder a providers usando `ref` si es necesario
+                    // context.go('/home');
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
