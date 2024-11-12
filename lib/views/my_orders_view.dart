@@ -79,9 +79,10 @@ class MyOrdersView extends ConsumerWidget {
                                 horizontal: 24,
                                 vertical: 12,
                               ),
-                              backgroundColor: order.state == OrderState.delivered
-                                  ? Colors.grey
-                                  : AppTheme.primaryColor,
+                              backgroundColor:
+                                  order.state == OrderState.delivered
+                                      ? Colors.grey
+                                      : AppTheme.primaryColor,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),

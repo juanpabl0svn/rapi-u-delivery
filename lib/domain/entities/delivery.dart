@@ -2,44 +2,39 @@ class Delivery {
   final int id;
   final String name;
   final String email;
-  final String phone;
-  final String photoURL; 
+  final String cc;
 
   Delivery({
     required this.id,
     required this.name,
     required this.email,
-    required this.phone,
-    required this.photoURL,
+    required this.cc
   });
 
   factory Delivery.fromJson(Map<String, dynamic> map) {
     return Delivery(
-      id: map['id'],
-      name: map['name'],
+      id: map['idDelivery'],
+      name: map['firstName'] + ' ' + map['lastName'],
       email: map['email'],
-      phone: map['phone'],
-      photoURL: map['photoURL'],
+      cc: map['cc'],
     );
   }
 
   Delivery copyWith({
     String? name,
     String? email,
-    String? phone,
-    String? photoURL,
+    String? cc
   }) {
     return Delivery(
       id: id,
       name: name ?? this.name,
       email: email ?? this.email,
-      phone: phone ?? this.phone,
-      photoURL: photoURL ?? this.photoURL,
+      cc: cc ?? this.cc,
     );
   }
 
   @override
   String toString() {
-    return 'Delivery {id: $id, name: $name, email: $email, phone: $phone';
+    return 'Delivery {id: $id, name: $name, email: $email';
   }
 }

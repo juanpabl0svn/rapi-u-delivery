@@ -5,11 +5,13 @@ class Order {
   final String client;
   final String store;
   OrderState state;
+  final int? idDelivery;
 
   Order({
     required this.id,
     required this.client,
     required this.store,
+    this.idDelivery,
     this.state = OrderState.pending,
   });
 

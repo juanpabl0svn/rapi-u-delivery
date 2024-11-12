@@ -48,7 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 32),
                 const Text(
-                  "Login to RAPI U",
+                  "Login to RAPPI U",
                   style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -99,12 +99,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                       return;
                     }
 
-                    await ref
+                    bool isLoggedIn = await ref
                         .read(authProvider.notifier)
                         .login(email, password);
 
-                    // Acceder a providers usando `ref` si es necesario
-                    // context.go('/home');
+                    if (!isLoggedIn) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Invalid credentials')),
+                      );
+                      return;
+                    }
+
+                    context.go('/home');
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
