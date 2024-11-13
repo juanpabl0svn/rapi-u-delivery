@@ -44,22 +44,6 @@ class AppStateNotifier extends StateNotifier<AppState> {
         .map((order) => Order.fromJson(order))
         .toList();
 
-    state = state.copyWith(orders: [
-      Order(
-          id: 1,
-          client: 'Pedro',
-          store: 'Donde Tavo',
-          state: OrderState.pending),
-      Order(
-          id: 2,
-          client: 'Juan',
-          store: 'Donde Dari',
-          state: OrderState.pending),
-      Order(
-          id: 3,
-          client: 'Maria',
-          store: 'Señor Gourmet',
-          state: OrderState.delivered),
-    ]);
+    state = state.copyWith(orders: orders);
   }
 }

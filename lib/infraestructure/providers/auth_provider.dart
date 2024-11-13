@@ -22,7 +22,7 @@ class AuthNotifier extends StateNotifier<Auth> {
       'password': password,
     });
 
-    if (user.statusCode != 200) {
+    if (user.statusCode != 202) {
       return false;
     }
     Delivery delivery = Delivery.fromJson(jsonDecode(user.body));

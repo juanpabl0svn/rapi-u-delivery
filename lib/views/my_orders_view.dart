@@ -42,7 +42,7 @@ class MyOrdersView extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          order.client,
+                          order.user.firstName + ' ' + order.user.lastName,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class MyOrdersView extends ConsumerWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          order.store,
+                          order.total.toString(),
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 16),

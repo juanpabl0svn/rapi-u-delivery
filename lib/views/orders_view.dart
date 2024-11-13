@@ -27,8 +27,8 @@ class _OrdersView extends ConsumerState<OrdersView> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: orders.isEmpty
-          ? Center(
-              child: Text('No hay pedidos pendientes ${delivery.cc}'),
+          ? const Center(
+              child: Text('No hay pedidos pendientes'),
             )
           : ListView.builder(
               itemCount: orders.length,
@@ -46,7 +46,7 @@ class _OrdersView extends ConsumerState<OrdersView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          order.client,
+                          order.user.email,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _OrdersView extends ConsumerState<OrdersView> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          order.store,
+                          order.total.toString(),
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 16),
