@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:myapp/core/fetch.dart';
 import 'package:myapp/domain/entities/app.dart';
+import 'package:myapp/domain/entities/delivery.dart';
 import 'package:myapp/domain/entities/order.dart';
 
 final appStateProvider =
@@ -27,10 +28,14 @@ class AppStateNotifier extends StateNotifier<AppState> {
     state = state.copyWith(orders: updatedOrders);
   }
 
-  void setToMyOrders(Order order) {
-    final updatedMyOrders = state.my_orders;
-    updatedMyOrders.add(order);
-    state = state.copyWith();
+  void setToMyOrders(Order order, Delivery delivery) {
+    final updatedOrders = state.orders.map((o) {
+      if (o.id == order.id) {
+        return o.copyWith(delivery: delivery);
+      }
+      return o;
+    }).toList();
+    state = state.copyWith(orders: updatedOrders);
   }
 
   void getOrders() async {

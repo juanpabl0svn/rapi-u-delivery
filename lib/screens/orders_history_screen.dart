@@ -7,37 +7,33 @@ import 'package:myapp/domain/entities/order.dart';
 import 'package:myapp/infraestructure/providers/auth_provider.dart';
 import 'package:myapp/infraestructure/providers/state_provider.dart';
 
-class MyOrdersView extends ConsumerWidget {
-  const MyOrdersView({super.key});
+class OrdersHistoryView extends ConsumerStatefulWidget {
+  const OrdersHistoryView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  _OrdersHistoryView createState() => _OrdersHistoryView();
+}
+
+class _OrdersHistoryView extends ConsumerState<OrdersHistoryView> {
+  @override
+  Widget build(BuildContext context) {
     final Delivery delivery = ref.watch(authProvider).session!;
 
     final List<Order> orders = ref
         .watch(appStateProvider)
         .orders
         .where((order) =>
-            order.delivery?.id == delivery.id &&
-            order.state == OrderState.onTheWay)
+            order.state == OrderState.delivered &&
+            order.delivery?.id == delivery.id)
         .toList();
 
-    return Column(
-      children: [
-        const SizedBox(height: 16),
-        const Text(
-          'Mis Pedidos',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListView.builder(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: orders.isEmpty
+          ? const Center(
+              child: Text('No has terminado ningun pedido'),
+            )
+          : ListView.builder(
               itemCount: orders.length,
               itemBuilder: (context, index) {
                 final order = orders[index];
@@ -53,7 +49,7 @@ class MyOrdersView extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          order.user.firstName + ' ' + order.user.lastName,
+                          order.location,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -71,19 +67,16 @@ class MyOrdersView extends ConsumerWidget {
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 8),
-                        Align(
-                            alignment: Alignment.centerRight,
-                            child: Icon(Icons.delivery_dining,
-                                color: AppTheme.primaryColor)),
+                        const Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(Icons.delivery_dining_rounded),
+                        ),
                       ],
                     ),
                   ),
                 );
               },
             ),
-          ),
-        ),
-      ],
     );
   }
 }

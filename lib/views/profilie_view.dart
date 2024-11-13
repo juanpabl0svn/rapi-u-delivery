@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myapp/domain/entities/delivery.dart';
+import 'package:myapp/infraestructure/providers/auth_provider.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
@@ -9,13 +11,12 @@ class ProfileView extends ConsumerStatefulWidget {
 }
 
 class _ProfileViewState extends ConsumerState<ProfileView> {
-  // Controladores de texto para simular la información del repartidor
-  final String nombreRepartidor = "Juan Pablo Sanchez";
-  final String infoRepartidor =
-      "Información repartidor\n Estudiante de Ing. Sistemas \n 21 años";
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1627363834.
 
   @override
   Widget build(BuildContext context) {
+    Delivery delivery = ref.watch(authProvider).session!;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -36,7 +37,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
             const SizedBox(height: 8),
             // Nombre del repartidor
             Text(
-              nombreRepartidor,
+              delivery.name,
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
@@ -45,7 +46,14 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
             const SizedBox(height: 46),
             // Información del repartidor (que estudia)
             Text(
-              infoRepartidor,
+              delivery.email,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              delivery.cc == "" ? "Falta cedula" : delivery.cc,
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 16,

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:myapp/core/app_theme.dart';
 import 'package:myapp/infraestructure/providers/auth_provider.dart';
+import 'package:myapp/screens/orders_history_screen.dart';
 
 class SettingsView extends ConsumerWidget {
   const SettingsView({super.key});
@@ -13,20 +14,14 @@ class SettingsView extends ConsumerWidget {
       padding: const EdgeInsets.all(16.0),
       children: [
         ListTile(
-          leading: const Icon(Icons.person, color: AppTheme.primaryColor),
-          title: const Text('Perfil'),
-          trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {
-            context.go('/perfil');
-          },
-        ),
-        const Divider(),
-        ListTile(
           leading: const Icon(Icons.history, color: AppTheme.primaryColor),
           title: const Text('Historial de Pedidos'),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            context.go('/historial-pedidos');
+            Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const OrdersHistoryView()),
+                );
           },
         ),
         const Divider(),
