@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:myapp/core/app_theme.dart';
+import 'package:myapp/domain/entities/delivery.dart';
 import 'package:myapp/domain/entities/order.dart';
+import 'package:myapp/infraestructure/providers/auth_provider.dart';
 import 'package:myapp/infraestructure/providers/state_provider.dart';
 
 class MyOrdersView extends ConsumerWidget {
@@ -9,7 +11,14 @@ class MyOrdersView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orders = ref.watch(appStateProvider).my_orders;
+
+    final Delivery delivery = ref.watch(authProvider).session!;
+
+    final List<Order> orders = ref
+        .watch(appStateProvider)
+        .orders
+        .where((order) => order.state != OrderState.pending && order.delivery!.id != delivery.id)
+        .toList();
 
     return Column(
       children: [

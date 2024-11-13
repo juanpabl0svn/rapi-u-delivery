@@ -10,8 +10,8 @@ class Order {
   final Delivery? delivery;
   final User user;
   OrderState state;
-  final String observation;
-  final Float total;
+  final String? observation;
+  final double total;
   final String location;
 
   Order({
@@ -29,10 +29,10 @@ class Order {
     return Order(
       id: map['idOrder'],
       delivery: map["delivery"] != null ? Delivery.fromJson(map['delivery']) : null,
-      state: OrderState.values(map['status']) ?? OrderState.pending,
+      state: map['state'] != null ? map["status"] as OrderState : OrderState.pending,
       observation: map['observation'],
       total: map['total'],
-      location: map['location'],
+      location: map['location']["location"],
       user: User.fromJson(map['user']),
     );
   }

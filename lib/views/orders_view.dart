@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/core/app_theme.dart';
 import 'package:myapp/domain/entities/delivery.dart';
 import 'package:myapp/domain/entities/order.dart';
@@ -16,7 +17,6 @@ class OrdersView extends ConsumerStatefulWidget {
 class _OrdersView extends ConsumerState<OrdersView> {
   @override
   Widget build(BuildContext context) {
-    final Delivery delivery = ref.watch(authProvider).session!;
 
     final List<Order> orders = ref
         .watch(appStateProvider)
@@ -46,7 +46,7 @@ class _OrdersView extends ConsumerState<OrdersView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          order.user.email,
+                          order.location,
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -54,7 +54,7 @@ class _OrdersView extends ConsumerState<OrdersView> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          order.total.toString(),
+                          NumberFormat.currency(locale: 'es_CO', symbol: '\$').format(order.total),
                           style: const TextStyle(fontSize: 16),
                         ),
                         const SizedBox(height: 16),
